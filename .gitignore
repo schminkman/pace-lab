@@ -42,3 +42,11 @@ next-env.d.ts
 
 # ide
 .vscode
+
+/app/generated/prisma
+
+# internal project planning documentation
+/plans
+
+# prisma generated files
+/src/generated
