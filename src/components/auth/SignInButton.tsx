@@ -1,14 +1,12 @@
 "use client";
 
 import { signIn } from "next-auth/react";
+import { Button } from "../ui/button";
 
 export function SignInButton() {
   return (
-    <button
-      onClick={() => signIn("strava", { callbackUrl: "/" })}
-      className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-    >
+    <Button onClick={() => signIn("strava", { callbackUrl: "/" })}>
       Connect with Strava
-    </button>
+    </Button>
   );
 }

@@ -17,7 +17,6 @@ export default async function DashboardPage() {
         <p className="text-gray-600 mt-2">
           Connected to Strava as {session.user?.name}
         </p>
-        <SignOutButton />
       </div>
 
       <div className="mt-8">

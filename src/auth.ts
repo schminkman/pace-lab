@@ -1,5 +1,5 @@
 import NextAuth from "next-auth";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import StravaProvider from "next-auth/providers/strava";
 import prisma from "@/lib/prisma";
 

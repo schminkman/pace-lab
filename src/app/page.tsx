@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { SignInButton } from "@/components/auth/SignInButton";
-import { SignOutButton } from "@/components/auth/SignOutButton";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
