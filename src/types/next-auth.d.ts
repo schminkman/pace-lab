@@ -1,14 +1,14 @@
-import { DefaultSession } from "next-auth";
+import type { DefaultSession } from "next-auth";
 
 // TODO is this necessary?
 declare module "next-auth" {
-  interface Session {
+  type Session = {
     user: {
       id: string;
     } & DefaultSession["user"];
-  }
+  };
 
-  interface User {
+  type User = {
     stravaId?: number;
-  }
+  };
 }

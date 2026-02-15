@@ -1,5 +1,5 @@
-import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import NextAuth from "next-auth";
 import StravaProvider from "next-auth/providers/strava";
 import prisma from "@/lib/prisma";
 
@@ -35,7 +35,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // Only update if stravaId is not already set
         await prisma.user.update({
           where: { id: user.id },
-          data: { stravaId: parseInt(account.providerAccountId) },
+          data: { stravaId: Number.parseInt(account.providerAccountId) },
         });
       }
       return true;

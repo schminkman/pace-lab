@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { geistMono, geistSans } from "@/app/fonts";
 
-import "./globals.css";
 import { Layout } from "@/components/layout/Layout";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Pace Lab",
