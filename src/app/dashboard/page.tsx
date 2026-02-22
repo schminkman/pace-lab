@@ -3,8 +3,6 @@ import { auth } from "@/auth";
 import { SyncButton } from "@/components/SyncButton";
 import prisma from "@/lib/prisma";
 
-// TODO fix darkmode styling
-// TODO show last synced date.. may need a schema update
 export default async function DashboardPage() {
   const session = await auth();
 
@@ -22,17 +20,18 @@ export default async function DashboardPage() {
       <div className="mx-auto max-w-4xl">
 
         <h1 className="mb-4 text-3xl font-bold">Dashboard</h1>
-        <p>{`Welcome, ${session.user?.name}!`}</p>
         <div className="space-y-4">
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 opacity-75">
             {`Connected to Strava as ${session.user?.name}`}
           </p>
         </div>
 
         <div className="mt-8 rounded-lg bg-accent p-6 shadow-md">
           <div className="flex items-start justify-between">
-
-            <h2 className="mb-4 text-xl font-semibold">Your Activities</h2>
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold">Your Activities</h2>
+              <span className="text-sm opacity-75">{`Last Synced: ${session.user.lastSyncedAt ?? "never"}`}</span>
+            </div>
             <SyncButton />
           </div>
           {activityCount > 0 ?

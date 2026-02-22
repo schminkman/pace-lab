@@ -17,8 +17,8 @@ export function SyncButton() {
       <Button variant="strava" disabled={syncing} onClick={sync}>
         {syncing ? "Syncing..." : "Sync Activities"}
       </Button>
-      <span className={`absolute top-full mt-2 whitespace-nowrap text-sm ${message ? "" : "invisible"} ${message.startsWith("Synced") ? "text-green-600" : ""}`}>
-        {message || "\u00A0"}
+      <span className={`absolute top-full mt-2 text-sm whitespace-nowrap ${message ? "" : "invisible"} ${message.startsWith("Synced") ? "text-green-600" : ""}`}>
+        {message}
       </span>
     </div>
   );

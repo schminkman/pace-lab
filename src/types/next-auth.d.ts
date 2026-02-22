@@ -6,6 +6,7 @@ declare module "next-auth" {
     user: {
       id: string;
       historicalSyncComplete: boolean;
+      lastSyncedAt: Date | null;
     } & DefaultSession["user"];
   }
 }

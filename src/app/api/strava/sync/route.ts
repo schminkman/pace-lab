@@ -116,10 +116,13 @@ export async function POST(request: NextRequest) {
     const done = activities.length < SYNC_PAGE_SIZE;
 
     // If done syncing old activities update historicalSyncComplete
-    if (done && direction === SyncDirection.OLD) {
+    if (done) {
       await prisma.user.update({
         where: { id: session.user.id },
-        data: { historicalSyncComplete: true },
+        data: {
+          lastSyncedAt: new Date(),
+          ...(direction === SyncDirection.OLD && { historicalSyncComplete: true }),
+        },
       });
     }
 

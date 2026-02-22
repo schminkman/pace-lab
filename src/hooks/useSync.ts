@@ -63,7 +63,7 @@ export function useSync() {
       } else {
         setMessage("Already up to date");
       }
-      router.refresh(); // TODO confirm refresh working as intended
+      router.refresh();
     } catch (error) {
       const msg =
         error instanceof Error ? error.message : "Failed to sync activities";
