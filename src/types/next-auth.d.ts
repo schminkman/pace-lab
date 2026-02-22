@@ -5,11 +5,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
-      stravaId?: number;
+      historicalSyncComplete: boolean;
     } & DefaultSession["user"];
-  }
-
-  interface User {
-    stravaId?: number;
   }
 }

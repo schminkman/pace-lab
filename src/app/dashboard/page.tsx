@@ -3,6 +3,8 @@ import { auth } from "@/auth";
 import { SyncButton } from "@/components/SyncButton";
 import prisma from "@/lib/prisma";
 
+// TODO fix darkmode styling
+// TODO show last synced date.. may need a schema update
 export default async function DashboardPage() {
   const session = await auth();
 
@@ -27,8 +29,8 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-        <div className="mt-8 shadow rounded-lg p-6">
-          <div className="flex justify-between items-center">
+        <div className="mt-8 shadow-md rounded-lg p-6 bg-accent">
+          <div className="flex justify-between items-start">
 
             <h2 className="text-xl font-semibold mb-4">Your Activities</h2>
             <SyncButton />

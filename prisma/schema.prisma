@@ -23,7 +23,8 @@ model User {
   image         String?
   
   // Strava-specific fields
-  stravaId      Int?      @unique
+  stravaId                Int?      @unique
+  historicalSyncComplete  Boolean   @default(false)
   
   // Timestamps
   createdAt     DateTime  @default(now())
@@ -77,7 +78,6 @@ model Activity {
   stravaId          BigInt   @unique
   userId            String
   name              String
-  type              String   // "Run", "Ride", etc.
   sportType         String   // "Run", "TrailRun", etc.
   startDate         DateTime
   timezone          String
@@ -93,7 +93,6 @@ model Activity {
   maxSpeed          Float?   // meters/second
   averageHeartrate  Float?   // bpm
   maxHeartrate      Int?     // bpm
-  averageCadence    Float?   // steps/min for running
   
   // Additional data
   kudosCount        Int      @default(0)

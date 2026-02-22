@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { geistMono, geistSans } from "@/app/fonts";
 
 import { Layout } from "@/components/layout/Layout";
+import { SessionProvider } from "@/providers/SessionProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import "./globals.css";
 
@@ -26,7 +27,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Layout>{children}</Layout>
+          <SessionProvider>
+
+            <Layout>{children}</Layout>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>
