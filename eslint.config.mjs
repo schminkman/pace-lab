@@ -1,5 +1,36 @@
 import antfu from "@antfu/eslint-config";
-// import tailwind from "eslint-plugin-tailwindcss";
+import tailwindcssPlugin from "eslint-plugin-better-tailwindcss";
+import { defineConfig } from "eslint/config";
+
+const tailwindcssConfig = defineConfig(
+  {
+    name: "custom/tailwindcss/recommended",
+    files: ["**/*.ts?(x)"],
+    plugins: {
+      "better-tailwindcss": tailwindcssPlugin,
+    },
+    rules: {
+      ...tailwindcssPlugin.configs.recommended.rules,
+      // https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/README.md#rules
+      // https://github.com/schoero/eslint-plugin-better-tailwindcss/blob/main/docs/rules/enforce-consistent-line-wrapping.md
+      "better-tailwindcss/enforce-consistent-line-wrapping": ["warn", {
+        printWidth: 160, // Maximum line length (0 = disabled)
+        classesPerLine: 0, // Maximum classes per line (0 = disabled)
+        group: "newLine",
+        preferSingleLine: true,
+        indent: 2,
+        lineBreakStyle: "unix",
+      }],
+    },
+    settings: {
+      "better-tailwindcss": {
+        // tailwindcss (4) css based
+        entryPoint: "src/app/globals.css",
+        detectComponentClasses: true, // Enable custom class detection
+      },
+    },
+  },
+);
 
 // https://github.com/antfu/eslint-config/tree/main
 export default antfu(
@@ -41,8 +72,7 @@ export default antfu(
       },
     },
   },
-  // TODO eslint-plugin-tailwindcss not updated for tailwind v5, usable but with maybe warning logs..
-  // ...tailwind.configs["flat/recommended"],
+  tailwindcssConfig,
   {
     rules: {
       "antfu/no-top-level-await": "off", // Allow top-level await
