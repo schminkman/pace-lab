@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { SyncButton } from "@/components/SyncButton";
 import prisma from "@/lib/prisma";
+import { timeAgo } from "@/lib/utils";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -14,6 +15,10 @@ export default async function DashboardPage() {
   const activityCount = await prisma.activity.count({
     where: { userId: session.user.id },
   });
+
+  const lastSyncedAt = session.user.lastSyncedAt ?
+      timeAgo(new Date(session.user.lastSyncedAt)) :
+    "never";
 
   return (
     <div className="min-h-screen p-8">
@@ -30,7 +35,7 @@ export default async function DashboardPage() {
           <div className="flex items-start justify-between">
             <div className="mb-4">
               <h2 className="text-xl font-semibold">Your Activities</h2>
-              <span className="text-sm opacity-75">{`Last Synced: ${session.user.lastSyncedAt ?? "never"}`}</span>
+              <span className="text-sm opacity-75">{`Last Synced: ${lastSyncedAt}`}</span>
             </div>
             <SyncButton />
           </div>
