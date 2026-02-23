@@ -9,11 +9,23 @@ import { ensureValidStravaToken } from "@/lib/strava";
 import { SYNC_PAGE_SIZE } from "./constants";
 import { SyncDirection, syncResponse } from "./types";
 
+/*
+Core Strava Sync route. Expercts the body to be of type SyncRequest.
+
+- The current flow is quite a bit hackey (for various reasons including timeout concerns).
+  This could probably be improved even while respecting these constraints. Potentially worth moving some logic to the useSync hook.
+
+  The core logic is this: request contains direction which is used to build the strava api query.
+  If SyncDirection.OLD, get earliest activity and use before query param.
+  If SyncDirection.NEW get latest activity and use after query param.
+  We use a sort of client-side pagination / chunking but every query is for page 1 (as anchorActivity updates with each query).
+  There is a client-side loop that executes until this request returns < SYNC_PAGE_SIZE activities.
+*/
 export async function POST(request: NextRequest) {
   try {
     // TODO can we move auth check / token refresh to a utility file?
     const session = await auth();
-    const { pageNumber, direction } = await request.json() as SyncRequest;
+    const { direction } = await request.json() as SyncRequest;
 
     // Check if user is authenticated
     if (!session?.user?.id) {
@@ -50,9 +62,9 @@ export async function POST(request: NextRequest) {
         Math.floor(anchorActivity.startDate.getTime() / 1000) :
       undefined;
 
+    // Always request page 1 (the default) as anchorActivity will update with each call.
     const url = new URL("https://www.strava.com/api/v3/athlete/activities");
     url.searchParams.append("per_page", SYNC_PAGE_SIZE.toString()); // 50 activity chunks
-    url.searchParams.append("page", pageNumber.toString());
     if (timestamp) {
       url.searchParams.append(direction === SyncDirection.OLD ? "before" : "after", timestamp.toString());
     }

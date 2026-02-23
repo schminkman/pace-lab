@@ -17,7 +17,6 @@ export function useSync() {
 
   const syncPages = async (direction: SyncDirection) => {
     let syncedCount = 0;
-    let page = 1;
     let hasMore = true;
     const label =
       direction === SyncDirection.OLD ? "Syncing old" : "Syncing new";
@@ -26,7 +25,7 @@ export function useSync() {
       const response = await fetch("/api/strava/sync", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ pageNumber: page, direction }),
+        body: JSON.stringify({ direction }),
       });
 
       const result: SyncResponse = await response.json();
@@ -38,7 +37,6 @@ export function useSync() {
 
       syncedCount += result.count;
       hasMore = !result.done;
-      page++;
       setMessage(`${label} activities: ${syncedCount}...`);
     }
 
