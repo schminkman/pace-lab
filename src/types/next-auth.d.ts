@@ -1,14 +1,12 @@
+/* eslint-disable ts/consistent-type-definitions */
 import type { DefaultSession } from "next-auth";
 
-// TODO is this necessary?
 declare module "next-auth" {
-  type Session = {
+  interface Session {
     user: {
       id: string;
+      historicalSyncComplete: boolean;
+      lastSyncedAt: Date | null;
     } & DefaultSession["user"];
-  };
-
-  type User = {
-    stravaId?: number;
-  };
+  }
 }
