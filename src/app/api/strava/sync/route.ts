@@ -10,7 +10,7 @@ import { SYNC_PAGE_SIZE } from "./constants";
 import { SyncDirection, syncResponse } from "./types";
 
 /*
-Core Strava Sync route. Expercts the body to be of type SyncRequest.
+Core Strava Sync route. Expects the body to be of type SyncRequest.
 
 - The current flow is quite a bit hackey (for various reasons including timeout concerns).
   This could probably be improved even while respecting these constraints. Potentially worth moving some logic to the useSync hook.
